@@ -1,12 +1,12 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.5'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version "$springVersion"
+	id 'io.spring.dependency-management' version "$springDependencyManagementVersion"
 	id 'java'
 }
 
 group = 'com.bankbox'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+version = ''
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -16,7 +16,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation "org.mapstruct:mapstruct:$mapstructVersion"
+
 	runtimeOnly 'mysql:mysql-connector-java'
+
+	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
