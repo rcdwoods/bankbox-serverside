@@ -1,6 +1,6 @@
 package com.bankbox.domain;
 
-public enum Bank {
+public enum BankName {
 	BRADESCO,
 	BANCO_DO_BRASIL,
 	ITAU,
