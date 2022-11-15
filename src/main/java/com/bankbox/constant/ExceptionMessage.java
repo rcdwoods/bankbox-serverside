@@ -5,5 +5,6 @@ public class ExceptionMessage {
 
 	}
 
-	public static String COSTUMER_NOT_FOUND = "Costumer not found";
+	public static final String COSTUMER_NOT_FOUND = "Costumer not found";
+	public static final String COSTUMER_ALREADY_EXISTS = "Costumer already exists";
 }
