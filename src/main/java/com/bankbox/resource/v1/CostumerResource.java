@@ -1,4 +1,4 @@
-package com.bankbox.resource;
+package com.bankbox.resource.v1;
 
 import com.bankbox.converter.CostumerConverter;
 import com.bankbox.domain.Costumer;
