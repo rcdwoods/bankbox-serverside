@@ -34,6 +34,8 @@ public class CostumerService implements RetrieveCostumer, CreateCostumer {
 
 	@Override
 	public Costumer createCostumer(Costumer costumer) {
+		Optional<Costumer> existentCostumer = costumerRepository.findByCpf(costumer.getCpf());
+		if (existentCostumer.isPresent()) throw new CostumerAlreadyExistsException(ExceptionMessage.COSTUMER_ALREADY_EXISTS);
 		return costumerRepository.save(costumer);
 	}
 }
