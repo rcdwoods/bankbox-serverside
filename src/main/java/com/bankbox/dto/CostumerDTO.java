@@ -8,4 +8,6 @@ public class CostumerDTO {
 	public String name;
 	@NotBlank
 	public String cpf;
+	@NotBlank
+	public String password;
 }
