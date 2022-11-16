@@ -6,6 +6,7 @@ import com.bankbox.dto.CostumerBasicDTO;
 import com.bankbox.dto.CostumerDTO;
 import com.bankbox.service.costumer.impl.CostumerService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/costumers")
+@CrossOrigin(origins = "*")
 public class CostumerResource {
 
 	private final CostumerService costumerService;
