@@ -40,6 +40,13 @@ public class CostumerService implements RetrieveCostumer, CreateCostumer {
 	}
 
 	@Override
+	public String retrieveNameByCpf(String cpf) {
+		String costumerNameFound = costumerRepository.findNameByCpf(cpf);
+		if (costumerNameFound == null) throw new CostumerNotFoundException(ExceptionMessage.COSTUMER_NOT_FOUND);
+		return costumerNameFound;
+	}
+
+	@Override
 	public Costumer createCostumer(Costumer costumer) {
 		Optional<Costumer> existentCostumer = costumerRepository.findByCpf(costumer.getCpf());
 		if (existentCostumer.isPresent()) throw new CostumerAlreadyExistsException(ExceptionMessage.COSTUMER_ALREADY_EXISTS);
