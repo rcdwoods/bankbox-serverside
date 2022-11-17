@@ -4,6 +4,7 @@ import com.bankbox.converter.CostumerConverter;
 import com.bankbox.domain.Costumer;
 import com.bankbox.dto.CostumerBasicDTO;
 import com.bankbox.dto.CostumerDTO;
+import com.bankbox.dto.CostumerRegisterDTO;
 import com.bankbox.service.costumer.impl.CostumerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,27 +32,21 @@ public class CostumerResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<CostumerDTO> createCostumer(@Valid  @RequestBody CostumerDTO costumerDto) {
-		Costumer costumer = costumerConverter.toCostumer(costumerDto);
+	public ResponseEntity<CostumerDTO> createCostumer(@Valid  @RequestBody CostumerRegisterDTO costumerRegisterDto) {
+		Costumer costumer = costumerConverter.toCostumer(costumerRegisterDto);
 		Costumer costumerCreated = costumerService.createCostumer(costumer);
-		return ResponseEntity.ok(costumerConverter.toDto(costumerCreated));
-	}
-
-	@GetMapping
-	public ResponseEntity<List<CostumerDTO>> retrieveCostumers() {
-		List<Costumer> costumersFound = costumerService.retrieveAll();
-		return ResponseEntity.ok(costumerConverter.toDto(costumersFound));
+		return ResponseEntity.ok(costumerConverter.toDTO(costumerCreated));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<CostumerDTO> retrieveCostumer(@PathVariable Long id) {
 		Costumer costumerFound = costumerService.retrieveById(id);
-		return ResponseEntity.ok(costumerConverter.toDto(costumerFound));
+		return ResponseEntity.ok(costumerConverter.toDTO(costumerFound));
 	}
 
 	@GetMapping("/{cpf}/basic")
 	public ResponseEntity<CostumerBasicDTO> retrieveCostumerBasic(@PathVariable String cpf) {
-		String costumerName = costumerService.retrieveNameByCpf(cpf);
-		return ResponseEntity.ok(new CostumerBasicDTO(costumerName));
+		Costumer costumerFound = costumerService.retrieveByCpf(cpf);
+		return ResponseEntity.ok(costumerConverter.toBasic(costumerFound));
 	}
 }

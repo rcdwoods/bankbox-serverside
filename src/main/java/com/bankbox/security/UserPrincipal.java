@@ -8,8 +8,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserPrincipal implements UserDetails {
-	private String username;
-	private String password;
+	private final String username;
+	private final String password;
 
 	public UserPrincipal(Costumer costumer) {
 		this.username = costumer.getCpf();
