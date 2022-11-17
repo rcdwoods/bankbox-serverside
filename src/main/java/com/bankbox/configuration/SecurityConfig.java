@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/v1/costumers").permitAll()
 			.antMatchers(HttpMethod.GET, "/v1/costumers/**/basic").permitAll()
 			.anyRequest().authenticated().and()
+			.cors().and()
 			.csrf().disable();
 	}
 }
