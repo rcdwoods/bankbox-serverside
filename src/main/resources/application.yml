@@ -4,7 +4,7 @@ spring:
     main:
         allow-bean-definition-overriding: true
     datasource:
-        url: jdbc:mysql://${DB_HOST}:3307/bankbox?autoReconnect=true&useSSL=false
+        url: jdbc:mysql://${DB_HOST}:3306/bankbox?autoReconnect=true&useSSL=false
         username: ${DB_USERNAME}
         password: ${DB_PASSWORD}
         driver-class-name: com.mysql.cj.jdbc.Driver
