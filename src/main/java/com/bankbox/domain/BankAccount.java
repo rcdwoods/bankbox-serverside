@@ -7,10 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Random;
 
 @Entity
 public class BankAccount {
@@ -44,6 +42,21 @@ public class BankAccount {
 		this.balance = balance;
 		this.agency = agency;
 		this.number = number;
+	}
+
+	public void transfer(BankAccount beneficiary, BigDecimal value) {
+		withdraw(value);
+		beneficiary.deposit(value);
+	}
+
+	public void withdraw(BigDecimal value) {
+		if (value.compareTo(balance) > 0)
+			throw new RuntimeException("Balance is not enought");
+		balance = balance.subtract(value);
+	}
+
+	public void deposit(BigDecimal value) {
+		balance = balance.add(value);
 	}
 
 	public Long getId() {
