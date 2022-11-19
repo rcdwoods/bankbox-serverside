@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,22 @@ public class Costumer {
 
 	public Costumer() {
 		this.bankAccounts = new ArrayList<>();
+	}
+
+	public BigDecimal getBalance() {
+		return bankAccounts.stream()
+			.map(BankAccount::getBalance)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
+	public void transfer(List<BankTransference> orders) {
+		orders.forEach(BankTransference::execute);
+	}
+
+	public String getFirstName() {
+		String space = " ";
+		if (!name.contains(space)) return name;
+		return name.substring(0, name.indexOf(space));
 	}
 
 	public Long getId() {
