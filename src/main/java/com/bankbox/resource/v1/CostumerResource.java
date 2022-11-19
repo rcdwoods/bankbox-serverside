@@ -57,7 +57,7 @@ public class CostumerResource {
 		return ResponseEntity.ok(costumerConverter.toBasic(costumerFound));
 	}
 
-	@GetMapping("/id/balance")
+	@GetMapping("/{id}/balance")
 	public ResponseEntity<BalanceDetailsResponse> retrieveCostumerBalanceDetails(@PathVariable Long id) {
 		Costumer costumerFound = retrieveCostumer.retrieveById(id);
 		return ResponseEntity.ok(costumerConverter.toBalanceDetails(costumerFound));
