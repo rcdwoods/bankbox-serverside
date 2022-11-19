@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Costumer {
@@ -31,6 +32,13 @@ public class Costumer {
 
 	public BigDecimal getBalance() {
 		return bankAccounts.stream()
+			.map(BankAccount::getBalance)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
+	public BigDecimal getBalanceFrom(BankAccountType type) {
+		return bankAccounts.stream()
+			.filter(account -> account.getBankAccountType() == type)
 			.map(BankAccount::getBalance)
 			.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
