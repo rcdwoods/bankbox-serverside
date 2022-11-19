@@ -35,10 +35,6 @@ public class Costumer {
 			.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
-	public void transfer(List<BankTransference> orders) {
-		orders.forEach(BankTransference::execute);
-	}
-
 	public String getFirstName() {
 		String space = " ";
 		if (!name.contains(space)) return name;
