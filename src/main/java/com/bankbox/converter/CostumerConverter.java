@@ -9,8 +9,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CostumerConverter {
-	@Mapping(source = "name", target = "firstName")
+	@Mapping(expression = "java(costumer.getFirstName())", target = "firstName")
 	public CostumerBasicDTO toBasic(Costumer costumer);
+	@Mapping(expression = "java(costumer.getFirstName())", target = "firstName")
 	public CostumerDTO toDTO(Costumer costumer);
 	public Costumer toCostumer(CostumerRegisterDTO costumerRegisterDTO);
 }
