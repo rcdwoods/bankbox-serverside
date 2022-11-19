@@ -8,13 +8,7 @@ public class CostumerBasicDTO {
 		return firstName;
 	}
 
-	public void setFirstName(String fullName) {
-		this.firstName = convertFullNameIntoFirstName(fullName);
-	}
-
-	private String convertFullNameIntoFirstName(String fullName) {
-		String space = " ";
-		if (!fullName.contains(space)) return fullName;
-		return fullName.substring(0, fullName.indexOf(space));
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 }
