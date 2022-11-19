@@ -4,7 +4,6 @@ import com.bankbox.converter.BankAccountConverter;
 import com.bankbox.domain.BankAccount;
 import com.bankbox.dto.BankAccountResponse;
 import com.bankbox.service.bankaccount.RetrieveBankAccount;
-import com.bankbox.service.bankaccount.impl.BankAccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,17 +25,18 @@ public class BankAccountResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<BankAccountResponse>> getBankAccounts(@RequestParam("user_id") Long userId) {
-		List<BankAccount> bankAccountsFound = retrieveBankAccount.retrieveByUser(userId);
+	public ResponseEntity<List<BankAccountResponse>> getBankAccounts(
+		@RequestParam(value = "user_id", required = false) Long userId,
+		@RequestParam(value = "agency", required = false) String agency,
+		@RequestParam(value = "account", required = false) String account
+	) {
+		List<BankAccount> bankAccountsFound = orquestrateRetriving(userId, agency, account);
 		return ResponseEntity.ok(bankAccountConverter.toResponse(bankAccountsFound));
 	}
 
-	@GetMapping
-	public ResponseEntity<BankAccountResponse> getBankAccount(
-		@RequestParam("agency") String agency,
-		@RequestParam("account") String account
-	) {
-		BankAccount bankAccountFound = retrieveBankAccount.retrieveByAgencyAndAccount(agency, account);
-		return ResponseEntity.ok(bankAccountConverter.toResponse(bankAccountFound));
+	public List<BankAccount> orquestrateRetriving(Long userId, String agency, String account) {
+		if (userId != null) return retrieveBankAccount.retrieveByUser(userId);
+		if (agency != null && account != null) return List.of(retrieveBankAccount.retrieveByAgencyAndAccount(agency, account));
+		return List.of();
 	}
 }

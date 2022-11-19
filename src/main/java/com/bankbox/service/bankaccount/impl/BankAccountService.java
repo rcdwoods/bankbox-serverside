@@ -2,7 +2,7 @@ package com.bankbox.service.bankaccount.impl;
 
 import com.bankbox.domain.BankAccount;
 import com.bankbox.repository.BankAccountRepository;
-import com.bankbox.service.bankaccount.CreateBankAccount;
+import com.bankbox.service.bankaccount.PersistBankAccount;
 import com.bankbox.service.bankaccount.RetrieveBankAccount;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BankAccountService implements CreateBankAccount, RetrieveBankAccount {
+public class BankAccountService implements PersistBankAccount, RetrieveBankAccount {
 
 	private final BankAccountRepository bankAccountRepository;
 
@@ -19,8 +19,15 @@ public class BankAccountService implements CreateBankAccount, RetrieveBankAccoun
 	}
 
 	@Override
-	public BankAccount createBankAccount(BankAccount bankAccount) {
+	public BankAccount saveBankAccount(BankAccount bankAccount) {
 		return bankAccountRepository.save(bankAccount);
+	}
+
+	@Override
+	public BankAccount retrieveById(Long id) {
+		Optional<BankAccount> bankAccountFound = bankAccountRepository.findById(id);
+		if (bankAccountFound.isEmpty()) throw new RuntimeException("Bank account not found");
+		return bankAccountFound.get();
 	}
 
 	@Override
