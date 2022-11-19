@@ -7,4 +7,5 @@ public class ExceptionMessage {
 
 	public static final String COSTUMER_NOT_FOUND = "Costumer not found";
 	public static final String COSTUMER_ALREADY_EXISTS = "Costumer already exists";
+	public static final String BALANCE_NOT_ENOUGH = "Source balance is not enough";
 }
