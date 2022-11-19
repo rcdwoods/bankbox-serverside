@@ -1,5 +1,8 @@
 package com.bankbox.domain;
 
+import com.bankbox.constant.ExceptionMessage;
+import com.bankbox.exception.BalanceNotEnoughException;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,7 +30,7 @@ public class BankAccount {
 	@NotNull
 	private String agency;
 	@NotNull
-	private String number;
+	private String account;
 	@NotNull
 	private BigDecimal balance;
 
@@ -35,13 +38,13 @@ public class BankAccount {
 
 	}
 
-	public BankAccount(Costumer owner, BankName bankName, BankAccountType type, BigDecimal balance, String agency, String number) {
+	public BankAccount(Costumer owner, BankName bankName, BankAccountType type, BigDecimal balance, String agency, String account) {
 		this.owner = owner;
 		this.bankName = bankName;
 		this.type = type;
 		this.balance = balance;
 		this.agency = agency;
-		this.number = number;
+		this.account = account;
 	}
 
 	public void transfer(BankAccount beneficiary, BigDecimal value) {
@@ -51,7 +54,7 @@ public class BankAccount {
 
 	public void withdraw(BigDecimal value) {
 		if (value.compareTo(balance) > 0)
-			throw new RuntimeException("Balance is not enought");
+			throw new BalanceNotEnoughException(ExceptionMessage.BALANCE_NOT_ENOUGH);
 		balance = balance.subtract(value);
 	}
 
@@ -71,7 +74,7 @@ public class BankAccount {
 		return bankName;
 	}
 
-	public BankAccountType getType() {
+	public BankAccountType getBankAccountType() {
 		return type;
 	}
 
@@ -79,8 +82,8 @@ public class BankAccount {
 		return agency;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getAccount() {
+		return account;
 	}
 
 	public BigDecimal getBalance() {
