@@ -10,8 +10,7 @@ public class BankAccountResponse {
 	public Long id;
 	@JsonProperty("costumer_id")
 	public Long costumerId;
-	@JsonProperty("bank_name")
-	public BankName bankName;
+	public BankResponse bank;
 	@JsonProperty("bank_account_type")
 	public BankAccountType bankAccountType;
 	public String agency;
