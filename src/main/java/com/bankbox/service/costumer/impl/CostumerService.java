@@ -61,7 +61,7 @@ public class CostumerService implements RetrieveCostumer, CreateCostumer {
 
 	private Costumer addRandomBankAccounts(Costumer costumer) {
 		BankAccount itau = generateFakeBankAccount(costumer, BankName.ITAU, BankAccountType.CHECKING);
-		BankAccount bradesco = generateFakeBankAccount(costumer, BankName.BRADESCO, BankAccountType.SAVINGS);
+		BankAccount bradesco = generateFakeBankAccount(costumer, BankName.NUBANK, BankAccountType.SAVINGS);
 		costumer.addBankAccount(itau);
 		costumer.addBankAccount(bradesco);
 		return costumer;
