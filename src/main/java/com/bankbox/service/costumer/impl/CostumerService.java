@@ -80,6 +80,6 @@ public class CostumerService implements RetrieveCostumer, CreateCostumer {
 	}
 
 	private String generateRandomNumber() {
-		return 1000 + new Random().nextInt(8999) + "-" + 0 + new Random().nextInt(9);
+		return 10000 + new Random().nextInt(89999) + "-" + new Random().nextInt(9);
 	}
 }

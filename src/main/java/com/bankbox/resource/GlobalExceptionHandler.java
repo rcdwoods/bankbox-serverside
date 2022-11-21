@@ -2,7 +2,9 @@ package com.bankbox.resource;
 
 import com.bankbox.domain.Error;
 import com.bankbox.exception.BalanceNotEnoughException;
+import com.bankbox.exception.BankAccountNotFoundException;
 import com.bankbox.exception.CostumerAlreadyExistsException;
+import com.bankbox.exception.CostumerAlreadyHasBankException;
 import com.bankbox.exception.CostumerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -33,16 +35,22 @@ public class GlobalExceptionHandler {
 			return new Error(HttpStatus.BAD_REQUEST, message, "ARGUMENT_NOT_VALID");
 	}
 
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(CostumerNotFoundException.class)
 	public Error costumerNotFoundException(CostumerNotFoundException exception) {
-		return new Error(HttpStatus.BAD_REQUEST, exception.getMessage(), "COSTUMER_NOT_FOUND");
+		return new Error(HttpStatus.NOT_FOUND, exception.getMessage(), "COSTUMER_NOT_FOUND");
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(CostumerAlreadyExistsException.class)
 	public Error costumerAlreadyExistsException(CostumerAlreadyExistsException exception) {
 		return new Error(HttpStatus.BAD_REQUEST, exception.getMessage(), "COSTUMER_ALREADY_EXISTS");
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(CostumerAlreadyHasBankException.class)
+	public Error ostumerAlreadyHasBankException(CostumerAlreadyHasBankException exception) {
+		return new Error(HttpStatus.BAD_REQUEST, exception.getMessage(), "COSTUMER_ALREADY_HAS_BANK");
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -55,5 +63,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(IllegalArgumentException.class)
 	public Error illegalArgumentoException(IllegalArgumentException exception) {
 		return new Error(HttpStatus.BAD_REQUEST, exception.getMessage(), "ILLEGAL_ARGUMENT");
+	}
+
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(BankAccountNotFoundException.class)
+	public Error bankAccountNotFoundException(BankAccountNotFoundException exception) {
+		return new Error(HttpStatus.NOT_FOUND, exception.getMessage(), "BANK_ACCOUNT_NOT_FOUND");
 	}
 }

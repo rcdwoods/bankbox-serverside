@@ -66,27 +66,55 @@ public class BankAccount {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Costumer getOwner() {
 		return owner;
+	}
+
+	public void setOwner(Costumer owner) {
+		this.owner = owner;
 	}
 
 	public BankName getBankName() {
 		return bankName;
 	}
 
+	public void setBankName(BankName bankName) {
+		this.bankName = bankName;
+	}
+
 	public BankAccountType getBankAccountType() {
 		return type;
+	}
+
+	public void setType(BankAccountType type) {
+		this.type = type;
 	}
 
 	public String getAgency() {
 		return agency;
 	}
 
+	public void setAgency(String agency) {
+		this.agency = agency;
+	}
+
 	public String getAccount() {
 		return account;
 	}
 
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
 	public BigDecimal getBalance() {
 		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 }
