@@ -37,10 +37,11 @@ public class BankAccountResource {
 	@GetMapping
 	public ResponseEntity<List<BankAccountResponse>> getBankAccounts(
 		@RequestParam(value = "user_id", required = false) Long userId,
+		@RequestParam(value = "bank", required = false) String bank,
 		@RequestParam(value = "agency", required = false) String agency,
 		@RequestParam(value = "account", required = false) String account
 	) {
-		List<BankAccount> bankAccountsFound = orquestrateRetriving(userId, agency, account);
+		List<BankAccount> bankAccountsFound = orquestrateRetriving(userId, bank, agency, account);
 		return ResponseEntity.ok(bankAccountConverter.toResponse(bankAccountsFound));
 	}
 
@@ -51,9 +52,9 @@ public class BankAccountResource {
 		return ResponseEntity.ok(bankAccountConverter.toResponse(createdBankAccount));
 	}
 
-	private List<BankAccount> orquestrateRetriving(Long userId, String agency, String account) {
+	private List<BankAccount> orquestrateRetriving(Long userId, String bank, String agency, String account) {
 		if (userId != null) return retrieveBankAccount.retrieveByUser(userId);
-		if (agency != null && account != null) return List.of(retrieveBankAccount.retrieveByAgencyAndAccount(agency, account));
+		if (agency != null && account != null && bank != null) return List.of(retrieveBankAccount.retrieveByAgencyAndAccount(bank, agency, account));
 		return List.of();
 	}
 }

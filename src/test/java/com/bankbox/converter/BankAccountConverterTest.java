@@ -28,7 +28,7 @@ class BankAccountConverterTest {
 
 		Assertions.assertThat(response.bank).isNotNull();
 		Assertions.assertThat(response.bank.name).isEqualTo("ITAU");
-		Assertions.assertThat(response.bank.formattedName).isEqualTo("Itaú Unibanco S/A");
+		Assertions.assertThat(response.bank.formattedName).isEqualTo("Itaú Unibanco");
 		Assertions.assertThat(response.bank.backgroundColor).isEqualTo("#EF761C");
 		Assertions.assertThat(response.bank.imgUrl).isEqualTo("../../assets/imgs/banks/itau.png");
 	}

@@ -7,5 +7,5 @@ import java.util.List;
 public interface RetrieveBankAccount {
 	BankAccount retrieveById(Long id);
 	List<BankAccount> retrieveByUser(Long id);
-	BankAccount retrieveByAgencyAndAccount(String agency, String account);
+	BankAccount retrieveByAgencyAndAccount(String bank, String agency, String account);
 }

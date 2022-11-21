@@ -60,8 +60,8 @@ public class BankAccountService implements PersistBankAccount, RetrieveBankAccou
 	}
 
 	@Override
-	public BankAccount retrieveByAgencyAndAccount(String agency, String account) {
-		Optional<BankAccount> bankAccountFound = bankAccountRepository.findByAgencyAndAccount(agency, account);
+	public BankAccount retrieveByAgencyAndAccount(String bank, String agency, String account) {
+		Optional<BankAccount> bankAccountFound = bankAccountRepository.findByBankNameAndAgencyAndAccount(BankName.valueOf(bank), agency, account);
 		if (bankAccountFound.isEmpty()) throw new BankAccountNotFoundException(ExceptionMessage.BANK_ACCOUNT_NOT_FOUDN);
 		return bankAccountFound.get();
 	}
