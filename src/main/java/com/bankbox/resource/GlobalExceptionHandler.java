@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(CostumerAlreadyHasBankException.class)
-	public Error ostumerAlreadyHasBankException(CostumerAlreadyHasBankException exception) {
+	public Error costumerAlreadyHasBankException(CostumerAlreadyHasBankException exception) {
 		return new Error(HttpStatus.BAD_REQUEST, exception.getMessage(), "COSTUMER_ALREADY_HAS_BANK");
 	}
 
