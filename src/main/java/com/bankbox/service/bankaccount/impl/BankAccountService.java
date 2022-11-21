@@ -36,9 +36,11 @@ public class BankAccountService implements PersistBankAccount, RetrieveBankAccou
 	public BankAccount saveBankAccount(BankAccount bankAccount) {
 		Costumer costumer = retrieveCostumer.retrieveById(bankAccount.getOwner().getId());
 		validateCostumerDoesNotHaveBank(costumer, bankAccount.getBankName());
-		BankAccount generatedBankAccount = generateFakeBankAccount(costumer, bankAccount.getBankName(), BankAccountType.SAVINGS);
+		BankAccount generatedBankAccount = generateFakeBankAccount(costumer, bankAccount.getBankName(), BankAccountType.CHECKING);
 		return bankAccountRepository.save(generatedBankAccount);
 	}
+
+
 
 	private void validateCostumerDoesNotHaveBank(Costumer costumer, BankName bankName) {
 		boolean costumerHaveBank = costumer.getBankAccounts().stream()
