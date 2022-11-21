@@ -69,7 +69,7 @@ class CreateCostumerTest {
 
 		Assertions.assertThat(bankAccounts.get(0).getBankName()).isEqualTo(BankName.ITAU);
 		Assertions.assertThat(bankAccounts.get(0).getBalance()).isGreaterThan(new BigDecimal(1));
-		Assertions.assertThat(bankAccounts.get(1).getBankName()).isEqualTo(BankName.BRADESCO);
+		Assertions.assertThat(bankAccounts.get(1).getBankName()).isEqualTo(BankName.NUBANK);
 		Assertions.assertThat(bankAccounts.get(1).getBalance()).isGreaterThan(new BigDecimal(1));
 	}
 }
