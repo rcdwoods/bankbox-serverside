@@ -2,6 +2,7 @@ package com.bankbox.converter;
 
 import com.bankbox.domain.BankAccount;
 import com.bankbox.domain.BankName;
+import com.bankbox.dto.BankAccountBasicResponse;
 import com.bankbox.dto.BankAccountRequest;
 import com.bankbox.dto.BankAccountResponse;
 import org.mapstruct.Mapper;
@@ -17,4 +18,7 @@ public interface BankAccountConverter {
 	List<BankAccountResponse> toResponse(List<BankAccount> bankAccount);
 	@Mapping(source = "costumerId", target = "owner.id")
 	BankAccount toDomain(BankAccountRequest bankAccountRequest);
+	@Mapping(expression = "java(bankAccount.getOwner().getFirstName())", target = "customerFirstName")
+	@Mapping(source = "bankName", target = "bank")
+	BankAccountBasicResponse toBasicResponse(BankAccount bankAccount);
 }
