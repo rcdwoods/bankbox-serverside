@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 public class Transaction {
@@ -30,6 +31,8 @@ public class Transaction {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TransactionType type;
+	@NotNull
+	private LocalDateTime performedAt;
 
 	public Transaction() {
 
@@ -41,6 +44,7 @@ public class Transaction {
 		this.beneficiary = beneficiary;
 		this.type = type;
 		this.value = value;
+		this.performedAt = LocalDateTime.now();
 	}
 
 	public void execute() {
@@ -70,5 +74,9 @@ public class Transaction {
 
 	public BigDecimal getValue() {
 		return value;
+	}
+
+	public LocalDateTime getPerformedAt() {
+		return performedAt;
 	}
 }
