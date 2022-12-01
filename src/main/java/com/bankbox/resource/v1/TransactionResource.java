@@ -2,6 +2,7 @@ package com.bankbox.resource.v1;
 
 import com.bankbox.converter.TransactionConverter;
 import com.bankbox.domain.Transaction;
+import com.bankbox.dto.DateTransactionsResponse;
 import com.bankbox.dto.TransactionRequest;
 import com.bankbox.dto.TransactionResponse;
 import com.bankbox.service.transaction.ExecuteTransaction;
@@ -37,9 +38,9 @@ public class TransactionResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<TransactionResponse>> getTransactions(@RequestParam(value = "costumer_id", required = true) Long id) {
+	public ResponseEntity<List<DateTransactionsResponse>> getTransactions(@RequestParam(value = "costumer_id", required = true) Long id) {
 		List<Transaction> transactions = retrieveTransaction.retrieveByCostumer(id);
-		return ResponseEntity.ok(transactionConverter.toResponse(transactions));
+		return ResponseEntity.ok(transactionConverter.toDateTransactionResponse(transactions));
 	}
 
 	@PostMapping

@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @ContextConfiguration(
@@ -45,6 +46,7 @@ class TransactionConverterTest {
 
 		Assertions.assertThat(dateTransactionsResponse).hasSize(1);
 		Assertions.assertThat(transactions).hasSize(1);
+		Assertions.assertThat(dateTransactionsResponse.get(0).performedAt).isEqualTo(LocalDate.now());
 		Assertions.assertThat(transactions.get(0).source.customerFirstName).isEqualTo("Richard");
 		Assertions.assertThat(transactions.get(0).beneficiary.customerFirstName).isEqualTo("El");
 	}
