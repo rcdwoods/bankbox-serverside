@@ -1,6 +1,7 @@
 package com.bankbox.domain;
 
 import com.bankbox.constant.ExceptionMessage;
+import com.bankbox.dto.TransactionFlow;
 import com.bankbox.exception.BalanceNotEnoughException;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Transaction {
@@ -54,6 +56,16 @@ public class Transaction {
 	public void validateSourceBalanceAvailability(BankAccount source, BigDecimal balance) {
 		if (balance.compareTo(source.getBalance()) > 0)
 			throw new BalanceNotEnoughException(ExceptionMessage.BALANCE_NOT_ENOUGH);
+	}
+
+	public TransactionFlow flowForCostumer(Long customerId) {
+		if (Objects.equals(this.source.getOwner().getId(), customerId) && Objects.equals(this.beneficiary.getOwner().getId(), customerId))
+			return TransactionFlow.BOTH;
+		if (Objects.equals(this.source.getOwner().getId(), customerId))
+			return TransactionFlow.OUTBOUND;
+		if (Objects.equals(this.beneficiary.getOwner().getId(), customerId))
+			return TransactionFlow.INBOUND;
+		throw new IllegalArgumentException("Customer not related to transaction.");
 	}
 
 	public Long getId() {
