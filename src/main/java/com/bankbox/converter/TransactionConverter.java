@@ -31,6 +31,12 @@ public class TransactionConverter {
 		this.bankAccountConverter = bankAccountConverter;
 	}
 
+	public List<Transaction> toModel(List<TransactionRequest> requests) {
+		return requests.stream()
+			.map(this::toModel)
+			.collect(Collectors.toList());
+	}
+
 	public Transaction toModel(TransactionRequest request) {
 		BankAccount source = retrieveBankAccount.retrieveById(request.sourceId);
 		BankAccount beneficiary = retrieveBankAccount.retrieveById(request.beneficiaryId);

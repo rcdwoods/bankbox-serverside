@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/transactions")
@@ -40,15 +39,13 @@ public class TransactionResource {
 	@GetMapping
 	public ResponseEntity<List<DateTransactionsResponse>> getTransactions(@RequestParam(value = "costumer_id", required = true) Long id) {
 		List<Transaction> transactions = retrieveTransaction.retrieveByCostumer(id);
-		return ResponseEntity.ok(transactionConverter.toDateTransactionResponse(transactions));
+		return ResponseEntity.ok(transactionConverter.toDateTransactionResponse(transactions, id));
 	}
 
 	@PostMapping
 	public ResponseEntity<List<TransactionResponse>> doTransactions(@Valid @RequestBody List<TransactionRequest> requests) {
-		List<Transaction> convertedTransactions = requests.stream()
-			.map(transactionConverter::toModel)
-			.collect(Collectors.toList());
+		List<Transaction> convertedTransactions = transactionConverter.toModel(requests);
 		List<Transaction> executedTransactions = executeTransaction.executeTransactions(convertedTransactions);
-		return ResponseEntity.ok(transactionConverter.toResponse(executedTransactions));
+		return ResponseEntity.ok(transactionConverter.toResponse(executedTransactions, null));
 	}
 }
