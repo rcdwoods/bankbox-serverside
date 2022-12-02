@@ -6,6 +6,7 @@ import com.bankbox.domain.Costumer;
 import com.bankbox.domain.Transaction;
 import com.bankbox.domain.TransactionType;
 import com.bankbox.dto.DateTransactionsResponse;
+import com.bankbox.dto.TransactionFlow;
 import com.bankbox.dto.TransactionResponse;
 import com.bankbox.service.bankaccount.impl.BankAccountService;
 import org.assertj.core.api.Assertions;
@@ -38,10 +39,10 @@ class TransactionConverterTest {
 
 	@Test
 	void deveConverterTransactionParaDateTransaction() {
-		BankAccount source = factoryBankAccount("Richard Nascimento");
-		BankAccount beneficiary = factoryBankAccount("El Santo");
+		BankAccount source = factoryBankAccount(1L, "Richard Nascimento");
+		BankAccount beneficiary = factoryBankAccount(2L, "El Santo");
 		Transaction transaction = new Transaction(source, beneficiary, TransactionType.TRANSFERENCE, BigDecimal.ONE);
-		List<DateTransactionsResponse> dateTransactionsResponse = transactionConverter.toDateTransactionResponse(List.of(transaction));
+		List<DateTransactionsResponse> dateTransactionsResponse = transactionConverter.toDateTransactionResponse(List.of(transaction), 1L);
 		List<TransactionResponse> transactions = dateTransactionsResponse.get(0).transactions;
 
 		Assertions.assertThat(dateTransactionsResponse).hasSize(1);
@@ -53,19 +54,34 @@ class TransactionConverterTest {
 
 	@Test
 	void deveSepararTransactionsPorDataAoConverterParaDateTransaction() {
-		BankAccount source = factoryBankAccount("Richard Nascimento");
-		BankAccount beneficiary = factoryBankAccount("El Santo");
+		BankAccount source = factoryBankAccount(1L, "Richard Nascimento");
+		BankAccount beneficiary = factoryBankAccount(2L,"El Santo");
 		Transaction transaction = new Transaction(source, beneficiary, TransactionType.TRANSFERENCE, BigDecimal.ONE);
 		Transaction transactionTwo = new Transaction(source, beneficiary, TransactionType.TRANSFERENCE, BigDecimal.ONE);
-		List<DateTransactionsResponse> dateTransactionsResponse = transactionConverter.toDateTransactionResponse(List.of(transaction, transactionTwo));
+		List<DateTransactionsResponse> dateTransactionsResponse = transactionConverter.toDateTransactionResponse(List.of(transaction, transactionTwo), 1L);
 		List<TransactionResponse> transactions = dateTransactionsResponse.get(0).transactions;
 
 		Assertions.assertThat(dateTransactionsResponse).hasSize(1);
 		Assertions.assertThat(transactions).hasSize(2);
 	}
 
-	private BankAccount factoryBankAccount(String name) {
+	@Test
+	void deveConverterTransactionFlowQuandoSourceEBeneficiaryForemOMesmo() {
+		BankAccount source = factoryBankAccount(1L, "Richard Nascimento");
+		BankAccount beneficiary = factoryBankAccount(1L, "Richard Nascimento");
+		Transaction transaction = new Transaction(source, beneficiary, TransactionType.TRANSFERENCE, BigDecimal.ONE);
+		List<DateTransactionsResponse> dateTransactionsResponse = transactionConverter.toDateTransactionResponse(List.of(transaction), 1L);
+		List<TransactionResponse> transactions = dateTransactionsResponse.get(0).transactions;
+
+		Assertions.assertThat(dateTransactionsResponse).hasSize(1);
+		Assertions.assertThat(transactions).hasSize(2);
+		Assertions.assertThat(transactions.get(0).flow).isEqualTo(TransactionFlow.INBOUND);
+		Assertions.assertThat(transactions.get(1).flow).isEqualTo(TransactionFlow.OUTBOUND);
+	}
+
+	private BankAccount factoryBankAccount(Long customerId, String name) {
 		Costumer costumer = new Costumer();
+		costumer.setId(customerId);
 		costumer.setName(name);
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.setType(BankAccountType.CHECKING);
