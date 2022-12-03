@@ -3,6 +3,7 @@ package com.bankbox.domain;
 import com.bankbox.constant.ExceptionMessage;
 import com.bankbox.exception.BalanceNotEnoughException;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,6 +34,8 @@ public class BankAccount {
 	private String account;
 	@NotNull
 	private BigDecimal balance;
+	@Column(unique = true)
+	private String pixKey;
 
 	public BankAccount() {
 
