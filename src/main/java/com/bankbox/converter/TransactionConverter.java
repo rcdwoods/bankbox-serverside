@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -74,10 +75,15 @@ public class TransactionConverter {
 	}
 
 	public List<DateTransactionsResponse> sort(List<DateTransactionsResponse> dateTransactions) {
-		return dateTransactions.stream()
+		List<DateTransactionsResponse> sortedTransactions = dateTransactions.stream()
 			.sorted(Comparator.comparing(it -> it.performedAt))
-			.peek(it -> it.transactions = it.transactions.stream().sorted(Comparator.comparing(transaction -> transaction.performedAt)).collect(Collectors.toList()))
+			.peek(it -> {
+				it.transactions = it.transactions.stream().sorted(Comparator.comparing(transaction -> transaction.performedAt)).collect(Collectors.toList());
+				Collections.reverse(it.transactions);
+			})
 			.collect(Collectors.toList());
+		Collections.reverse(sortedTransactions);
+		return sortedTransactions;
 	}
 
 	private List<TransactionResponse> transformFlowBothToInboundAndOutbound(final List<TransactionResponse> transactions) {
