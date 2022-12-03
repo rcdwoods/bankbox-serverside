@@ -1,7 +1,6 @@
 package com.bankbox.dto;
 
 import com.bankbox.domain.BankAccountType;
-import com.bankbox.domain.BankName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
@@ -15,5 +14,7 @@ public class BankAccountResponse {
 	public BankAccountType bankAccountType;
 	public String agency;
 	public String account;
+	@JsonProperty("pix_key")
+	public String pixKey;
 	public BigDecimal balance;
 }
