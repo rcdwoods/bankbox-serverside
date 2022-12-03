@@ -45,7 +45,8 @@ public class TransactionResource {
 	@PostMapping
 	public ResponseEntity<List<TransactionResponse>> doTransactions(@Valid @RequestBody List<TransactionRequest> requests) {
 		List<Transaction> convertedTransactions = transactionConverter.toModel(requests);
+		Long sourceCustomerId = convertedTransactions.get(0).getSource().getOwner().getId();
 		List<Transaction> executedTransactions = executeTransaction.executeTransactions(convertedTransactions);
-		return ResponseEntity.ok(transactionConverter.toResponse(executedTransactions, null));
+		return ResponseEntity.ok(transactionConverter.toResponse(executedTransactions, sourceCustomerId));
 	}
 }
