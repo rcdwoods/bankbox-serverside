@@ -120,4 +120,12 @@ public class BankAccount {
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
+
+	public String getPixKey() {
+		return pixKey;
+	}
+
+	public void setPixKey(String pixKey) {
+		this.pixKey = pixKey;
+	}
 }
