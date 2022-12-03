@@ -46,7 +46,7 @@ public class Transaction {
 		this.beneficiary = beneficiary;
 		this.type = type;
 		this.value = value;
-		this.performedAt = LocalDateTime.now();
+		this.performedAt = LocalDateTime.now().minusHours(3);
 	}
 
 	public void execute() {
