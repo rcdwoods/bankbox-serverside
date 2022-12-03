@@ -38,7 +38,12 @@ public class BankAccountService implements PersistBankAccount, RetrieveBankAccou
 		return bankAccountRepository.save(generatedBankAccount);
 	}
 
-
+	@Override
+	public BankAccount retrieveByPixKey(String pixKey) {
+		Optional<BankAccount> bankAccount = bankAccountRepository.findByPixKey(pixKey);
+		if (bankAccount.isEmpty()) throw new BankAccountNotFoundException(ExceptionMessage.BANK_ACCOUNT_NOT_FOUDN);
+		return bankAccount.get();
+	}
 
 	private void validateCostumerDoesNotHaveBank(Costumer costumer, BankName bankName) {
 		boolean costumerHaveBank = costumer.getBankAccounts().stream()
