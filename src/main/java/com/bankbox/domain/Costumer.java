@@ -98,4 +98,11 @@ public class Costumer {
 	public void addCreditCard(CreditCard creditCard) {
 		this.creditCards.add(creditCard);
 	}
+
+	public BigDecimal getCreditCardsLimit() {
+		if (creditCards.isEmpty()) return BigDecimal.ZERO;
+		return creditCards.stream()
+			.map(CreditCard::getCreditLimit)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
 }

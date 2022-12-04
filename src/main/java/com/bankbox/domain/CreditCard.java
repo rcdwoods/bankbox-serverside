@@ -1,9 +1,7 @@
 package com.bankbox.domain;
 
 import com.bankbox.constant.Constant;
-import com.bankbox.jpa.YearMonthJpaConverter;
 
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import java.time.YearMonth;
+import java.math.BigDecimal;
 
 @Entity
 public class CreditCard {
@@ -21,13 +19,13 @@ public class CreditCard {
 	private Long id;
 	@NotNull
 	private String owner;
+	@NotNull
 	@ManyToOne
 	private Costumer customer;
 	@NotNull
 	private String number;
 	@NotNull
-	@Convert(converter = YearMonthJpaConverter.class)
-	private YearMonth expiration;
+	private String expiration;
 	@NotNull
 	private int securityNumber;
 	@NotNull
@@ -35,6 +33,8 @@ public class CreditCard {
 	private CreditCardType type;
 	@NotNull
 	public String brand;
+	@NotNull
+	public BigDecimal creditLimit;
 
 	public Long getId() {
 		return id;
@@ -67,11 +67,11 @@ public class CreditCard {
 		return number.subSequence(12, 16).toString();
 	}
 
-	public YearMonth getExpiration() {
+	public String getExpiration() {
 		return expiration;
 	}
 
-	public void setExpiration(YearMonth expiration) {
+	public void setExpiration(String expiration) {
 		this.expiration = expiration;
 	}
 
@@ -99,5 +99,21 @@ public class CreditCard {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+
+	public BigDecimal getCreditLimit() {
+		return creditLimit;
+	}
+
+	public void setCreditLimit(BigDecimal limit) {
+		this.creditLimit = limit;
+	}
+
+	public Costumer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Costumer customer) {
+		this.customer = customer;
 	}
 }
