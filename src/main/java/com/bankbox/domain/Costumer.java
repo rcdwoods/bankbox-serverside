@@ -24,9 +24,12 @@ public class Costumer {
 	private String password;
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
 	private List<BankAccount> bankAccounts;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+	private List<CreditCard> creditCards;
 
 	public Costumer() {
 		this.bankAccounts = new ArrayList<>();
+		this.creditCards = new ArrayList<>();
 	}
 
 	public BigDecimal getBalance() {
@@ -86,5 +89,13 @@ public class Costumer {
 
 	public void addBankAccount(BankAccount bankAccount) {
 		this.bankAccounts.add(bankAccount);
+	}
+
+	public List<CreditCard> getCreditCards() {
+		return creditCards;
+	}
+
+	public void addCreditCard(CreditCard creditCard) {
+		this.creditCards.add(creditCard);
 	}
 }
