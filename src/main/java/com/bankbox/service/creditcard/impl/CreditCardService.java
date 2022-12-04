@@ -18,6 +18,6 @@ public class CreditCardService implements RetrieveCreditCard {
 
 	@Override
 	public List<CreditCard> findAllByCustomerId(Long customerId) {
-		return null;
+		return creditCardRepository.findByCustomerId(customerId);
 	}
 }
