@@ -1,7 +1,9 @@
 package com.bankbox.domain;
 
 import com.bankbox.constant.Constant;
+import com.bankbox.jpa.YearMonthJpaConverter;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class CreditCard {
 	@NotNull
 	private String number;
 	@NotNull
+	@Convert(converter = YearMonthJpaConverter.class)
 	private YearMonth expiration;
 	@NotNull
 	private int securityNumber;
