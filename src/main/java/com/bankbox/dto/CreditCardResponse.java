@@ -13,4 +13,5 @@ public class CreditCardResponse {
 	public String lastNumbers;
 	public int securityNumber;
 	public String type;
+	public String brand;
 }

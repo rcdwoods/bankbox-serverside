@@ -33,6 +33,8 @@ public class CreditCard {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private CreditCardType type;
+	@NotNull
+	public String brand;
 
 	public Long getId() {
 		return id;
@@ -89,5 +91,13 @@ public class CreditCard {
 
 	public void setType(CreditCardType type) {
 		this.type = type;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 }
