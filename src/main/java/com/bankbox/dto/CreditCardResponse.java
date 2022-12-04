@@ -12,4 +12,5 @@ public class CreditCardResponse {
 	@JsonProperty("last_numbers")
 	public String lastNumbers;
 	public int securityNumber;
+	public String type;
 }

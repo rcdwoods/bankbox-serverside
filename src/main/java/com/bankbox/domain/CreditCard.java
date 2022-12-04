@@ -5,6 +5,8 @@ import com.bankbox.jpa.YearMonthJpaConverter;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +30,9 @@ public class CreditCard {
 	private YearMonth expiration;
 	@NotNull
 	private int securityNumber;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private CreditCardType type;
 
 	public Long getId() {
 		return id;
@@ -76,5 +81,13 @@ public class CreditCard {
 		if (String.valueOf(securityNumber).length() != Constant.SECURITY_NUMBER_LENGTH)
 			throw new IllegalArgumentException("Incorrect credit card security number");
 		this.securityNumber = securityNumber;
+	}
+
+	public CreditCardType getType() {
+		return type;
+	}
+
+	public void setType(CreditCardType type) {
+		this.type = type;
 	}
 }
